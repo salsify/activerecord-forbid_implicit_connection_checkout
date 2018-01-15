@@ -1,5 +1,5 @@
 module ActiveRecord
-  module ForbidImplicitConnectionCheckout
+  module ForbidImplicitConnectionCheckoutForThread
     extend ActiveSupport::Concern
 
     module ClassMethods

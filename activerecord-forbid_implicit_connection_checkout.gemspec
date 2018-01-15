@@ -2,7 +2,7 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'version'
+require 'active_record/forbid_implicit_connection_checkout/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'activerecord-forbid_implicit_connection_checkout'
@@ -39,6 +39,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'salsify_rubocop', '~> 0.48.1'
   spec.add_development_dependency 'overcommit'
   spec.add_development_dependency 'database_cleaner'
-  spec.add_development_dependency 'pg', '~> 0'
+  spec.add_development_dependency 'pg', '~> 0.18'
   spec.add_development_dependency 'with_model'
 end
