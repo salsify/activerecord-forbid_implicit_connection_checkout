@@ -1,8 +1,9 @@
 require 'active_record'
 require 'active_record/forbid_implicit_connection_checkout/version'
 require 'active_record/implicit_connection_forbidden_error'
-require 'active_record/forbid_implicit_connection_checkout_for_thread'
-require 'active_record/connection_override'
 
-ActiveRecord::Base.include(ActiveRecord::ForbidImplicitConnectionCheckoutForThread)
-ActiveRecord::Base.singleton_class.prepend(ActiveRecord::ConnectionOverride)
+require 'forbid_implicit_connection_checkout_for_thread'
+require 'active_record_connection_override'
+
+ActiveRecord::Base.include(ForbidImplicitConnectionCheckoutForThread)
+ActiveRecord::Base.singleton_class.prepend(ActiveRecordConnectionOverride)
