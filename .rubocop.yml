@@ -3,4 +3,4 @@ inherit_gem:
 
 Style/FileName:
   Exclude:
-    - lib/activerecord-forbid_implicit_checkout.rb
+    - lib/activerecord-forbid_implicit_connection_checkout.rb
