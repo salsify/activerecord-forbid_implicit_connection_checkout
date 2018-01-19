@@ -4,7 +4,7 @@ require 'active_record/errors'
 
 module ActiveRecord
   class ImplicitConnectionForbiddenError < ActiveRecord::ConnectionNotEstablished
-    MESSAGE = 'Implicit ActiveRecord checkout attempted when Thread :force_explicit_connections set!'.freeze
+    MESSAGE = 'Implicit ActiveRecord checkout attempted when Thread :active_record_forbid_implicit_connections set!'.freeze
 
     def initialize
       super(MESSAGE)
