@@ -3,6 +3,8 @@
 This gem allows a `Thread` to prevent itself from checking out out an ActiveRecord connection. This can be useful
 in preventing your application from accidentally checking out more connections than the database can handle.
 
+Inspired by this blog post: https://bibwild.wordpress.com/2014/07/17/activerecord-concurrency-in-rails4-avoid-leaked-connections/
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,8 +24,25 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
+require 'active_record-forbid_implicit_connection_checkout'
+
 Thread.new do
   ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
+  # Code that doesn't require ActiveRecord
+end
+```
+
+If your thread needs a connection at some point
+```ruby
+Thread.new do
+  ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
+  # Code that doesn't require ActiveRecord
+
+  ActiveRecord::Base.connection_pool.with_connection do
+    # Allow the thread to take a connection within this block
+    ActiveRecord::Base.connection
+  end
+
   # Code that doesn't require ActiveRecord
 end
 ```
@@ -32,21 +51,24 @@ end
 Consider the following initially:
 
 ```ruby
+require 'active_record-forbid_implicit_connection_checkout'
+
 class Foo
   def self.download(id)
     Net::HTTP.get(URI("http://example.com/products/#{URI.encode(id)}"))
   end
 end
 
-Class Downloader
-def download_all(ids)
-  threads = ids.map do |id|
-    Thread.new do
-      ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
-      Foo.download
+class Downloader
+  def download_all(ids)
+    threads = ids.map do |id|
+      Thread.new do
+        ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
+        Foo.download
+      end
     end
+    threads.each(&:join)
   end
-  threads.each(&:join)
 end
 
 Downloader.download_all([1,2,3,4,5])
