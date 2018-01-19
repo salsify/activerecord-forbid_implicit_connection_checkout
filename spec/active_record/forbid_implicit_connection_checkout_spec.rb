@@ -5,14 +5,23 @@ describe ActiveRecord::ForbidImplicitConnectionCheckout do
 
   let(:thread_return_value) { 12345 }
 
-  it "prevents implicit checkout" do
-    expect do
-      t = Thread.new do
-        ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
-        ActiveRecord::Base.connection
-      end
-      t.join
-    end.to raise_error(ActiveRecord::ImplicitConnectionForbiddenError)
+  context "prevents implicit checkout" do
+    around do |example|
+      original_value = Thread.report_on_exception
+      Thread.report_on_exception = false
+      example.run
+      Thread.report_on_exception = original_value
+    end
+
+    it "prevents implicit checkout" do
+      expect do
+        t = Thread.new do
+          ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
+          ActiveRecord::Base.connection
+        end
+        t.join
+      end.to raise_error(ActiveRecord::ImplicitConnectionForbiddenError)
+    end
   end
 
   it "allows manual checkout via with_connection" do
