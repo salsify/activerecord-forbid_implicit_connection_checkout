@@ -1,6 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'active_record'
-require 'activerecord-forbid_implicit_connection_checkout'
+require 'active_record-forbid_implicit_connection_checkout'
 require 'fileutils'
 require 'logger'
 require 'yaml'

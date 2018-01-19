@@ -1,0 +1,9 @@
+require 'active_record'
+require 'active_record/forbid_implicit_connection_checkout/version'
+require 'active_record/implicit_connection_forbidden_error'
+
+require 'active_record/forbid_implicit_connection_checkout/prevent_connection_checkout'
+require 'active_record/forbid_implicit_connection_checkout/connection_override'
+
+ActiveRecord::Base.include(ActiveRecord::ForbidImplicitConnectionCheckout::PreventConnectionCheckout)
+ActiveRecord::Base.singleton_class.prepend(ActiveRecord::ForbidImplicitConnectionCheckout::ConnectionOverride)
