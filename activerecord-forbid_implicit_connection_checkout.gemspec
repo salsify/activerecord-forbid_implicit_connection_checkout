@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.license       = 'MIT'
 
-  spec.required_ruby_version = '>= 2.2'
+  spec.required_ruby_version = '>= 2.1'
 
   # Set 'allowed_push_post' to control where this gem can be published.
   if spec.respond_to?(:metadata)
