@@ -3,4 +3,5 @@ inherit_gem:
 
 Style/FileName:
   Exclude:
+    - Appraisals
     - lib/active_record-forbid_implicit_connection_checkout.rb
