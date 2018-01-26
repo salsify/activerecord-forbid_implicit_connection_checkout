@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/salsify/activerecord-forbid_implicit_connection_checkout.svg?branch=master)](https://travis-ci.org/salsify/activerecord-forbid_implicit_connection_checkout)
+
 # ActiveRecord-ForbidImplicitCheckout
 
 This gem allows a `Thread` to prevent itself from checking out out an ActiveRecord connection. This can be useful
