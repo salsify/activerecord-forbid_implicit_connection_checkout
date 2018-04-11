@@ -1,5 +1,8 @@
 # activerecord-forbid_implicit_checkout
 
+## v0.4.0
+- Add rails 5.2 support
+
 ## v0.3.0
 - Set required_ruby_version >= 2.2 in gemspec
 
