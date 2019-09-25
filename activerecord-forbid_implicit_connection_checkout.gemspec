@@ -29,11 +29,11 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'bin'
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
-  spec.add_dependency 'activerecord', '>= 5', '< 5.3'
-  spec.add_dependency 'activemodel', '>= 5', '< 5.3'
-  spec.add_dependency 'activesupport', '>= 5', '< 5.3'
+  spec.add_dependency 'activerecord', '>= 5', '< 6.1'
+  spec.add_dependency 'activemodel', '>= 5', '< 6.1'
+  spec.add_dependency 'activesupport', '>= 5', '< 6.1'
 
-  spec.add_development_dependency 'bundler', '~> 1.12'
+  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.4'

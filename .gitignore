@@ -9,3 +9,5 @@
 /log/
 /tmp/
 gemfiles/*.gemfile.lock
+*.iml
+.idea/
