@@ -7,3 +7,6 @@ gemfile:
   - gemfiles/rails_6.0.gemfile
 services:
   - postgresql
+script:
+  - bundle exec rubocop
+  - bundle exec rake
