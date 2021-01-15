@@ -42,4 +42,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'database_cleaner'
   spec.add_development_dependency 'pg', '~> 1.0'
   spec.add_development_dependency 'with_model'
+  spec.add_development_dependency 'rspec_junit_formatter'
 end
