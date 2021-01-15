@@ -46,8 +46,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-gems-ruby-<< parameters.ruby-version >>-{{ checksum "activerecord-forbid_implicit_connection_checkout.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
-            - v1-gems-ruby-<< parameters.ruby-version >>-
+            - v1-gems-ruby-<< parameters.ruby_version >>-{{ checksum "activerecord-forbid_implicit_connection_checkout.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
+            - v1-gems-ruby-<< parameters.ruby_version >>-
       - run:
           name: Install Gems
           command: |
@@ -56,7 +56,7 @@ jobs:
               bundle clean
             fi
       - save_cache:
-          key: v1-gems-ruby-<< parameters.ruby-version >>-{{ checksum "activerecord-forbid_implicit_connection_checkout.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
+          key: v1-gems-ruby-<< parameters.ruby_version >>-{{ checksum "activerecord-forbid_implicit_connection_checkout.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
           paths:
             - "vendor/bundle"
             - "gemfiles/vendor/bundle"
