@@ -2,6 +2,6 @@
 
 module ActiveRecord
   module ForbidImplicitConnectionCheckout
-    VERSION = '2.0.0'
+    VERSION = '1.1.0'
   end
 end
