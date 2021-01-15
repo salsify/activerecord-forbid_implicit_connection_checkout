@@ -51,15 +51,6 @@ jobs:
               bundle install --path=vendor/bundle --jobs=4 --retry=3
               bundle clean
             fi
-      - unless:
-          condition:
-            equal: [ "gemfiles/rails_edge.gemfile", << parameters.gemfile >> ]
-          steps:
-          - save_cache:
-              key: v1-gems-ruby-<< parameters.ruby_version >>-{{ checksum "activerecord-forbid_implicit_connection_checkout.gemspec" }}-{{ checksum "<< parameters.gemfile >>" }}
-              paths:
-                - "vendor/bundle"
-                - "gemfiles/vendor/bundle"
       - run:
           name: Run Tests
           command: |
