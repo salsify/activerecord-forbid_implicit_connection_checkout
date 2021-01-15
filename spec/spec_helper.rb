@@ -1,4 +1,6 @@
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'active_record'
 require 'active_record-forbid_implicit_connection_checkout'
 require 'fileutils'
@@ -17,7 +19,7 @@ db_config = YAML.safe_load(File.read('spec/db/database.yml'))
 db_host = db_config[db_adapter]['host']
 ENV['PGHOST'] ||= db_host if db_host
 
-DATABASE_NAME = 'forbid_implicit_connection_checkout_test'.freeze
+DATABASE_NAME = 'forbid_implicit_connection_checkout_test'
 
 RSpec.configure do |config|
   config.order = 'random'
@@ -31,15 +33,15 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after do
     DatabaseCleaner.clean
   end
 end
