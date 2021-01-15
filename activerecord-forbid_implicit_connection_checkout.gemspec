@@ -29,9 +29,9 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'bin'
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
-  spec.add_dependency 'activerecord', '>= 5.2', '< 6.1'
-  spec.add_dependency 'activemodel', '>= 5.2', '< 6.1'
-  spec.add_dependency 'activesupport', '>= 5.2', '< 6.1'
+  spec.add_dependency 'activerecord', '>= 6.0', '< 6.2'
+  spec.add_dependency 'activemodel', '>= 6.0', '< 6.2'
+  spec.add_dependency 'activesupport', '>= 6.0', '< 6.2'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'appraisal'
@@ -40,6 +40,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'salsify_rubocop', '~> 0.48.1'
   spec.add_development_dependency 'overcommit'
   spec.add_development_dependency 'database_cleaner'
-  spec.add_development_dependency 'pg', '~> 0.18'
+  spec.add_development_dependency 'pg', '~> 1.0'
   spec.add_development_dependency 'with_model'
 end
