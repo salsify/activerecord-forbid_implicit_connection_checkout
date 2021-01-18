@@ -1,7 +1,16 @@
 inherit_gem:
   salsify_rubocop: conf/rubocop.yml
 
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - 'vendor/**/*'
+    - 'gemfiles/vendor/**/*'
+
 Style/FileName:
   Exclude:
     - Appraisals
     - lib/active_record-forbid_implicit_connection_checkout.rb
+
+Bundler/GemComment:
+  Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_record/implicit_connection_forbidden_error'
 
 module ActiveRecord
@@ -8,6 +10,7 @@ module ActiveRecord
           !connection_handler.retrieve_connection_pool(connection_specification_name).active_connection?
           raise ActiveRecord::ImplicitConnectionForbiddenError.new
         end
+
         super
       end
     end

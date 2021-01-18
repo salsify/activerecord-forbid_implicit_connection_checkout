@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_record'
 require 'active_record/forbid_implicit_connection_checkout/version'
 require 'active_record/implicit_connection_forbidden_error'

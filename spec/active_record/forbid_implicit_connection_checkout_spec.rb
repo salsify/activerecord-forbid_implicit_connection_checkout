@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 describe ActiveRecord::ForbidImplicitConnectionCheckout do
+  let(:thread_return_value) { 12345 }
+
   it "has a version number" do
     expect(ActiveRecord::ForbidImplicitConnectionCheckout::VERSION).not_to be nil
   end
 
-  let(:thread_return_value) { 12345 }
 
   it "prevents implicit checkout" do
     expect do

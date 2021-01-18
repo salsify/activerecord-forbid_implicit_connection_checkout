@@ -1,6 +1,6 @@
-# coding: utf-8
+# frozen_string_literal: true
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'active_record/forbid_implicit_connection_checkout/version'
 
@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.license       = 'MIT'
 
-  spec.required_ruby_version = '>= 2.2'
+  spec.required_ruby_version = '>= 2.5'
 
   # Set 'allowed_push_post' to control where this gem can be published.
   if spec.respond_to?(:metadata)
@@ -29,17 +29,18 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'bin'
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
-  spec.add_dependency 'activerecord', '>= 5.2', '< 6.1'
-  spec.add_dependency 'activemodel', '>= 5.2', '< 6.1'
-  spec.add_dependency 'activesupport', '>= 5.2', '< 6.1'
+  spec.add_dependency 'activemodel', '>= 5.2', '< 6.2'
+  spec.add_dependency 'activerecord', '>= 5.2', '< 6.2'
+  spec.add_dependency 'activesupport', '>= 5.2', '< 6.2'
 
-  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'appraisal'
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'database_cleaner'
+  spec.add_development_dependency 'overcommit'
+  spec.add_development_dependency 'pg', '~> 1.0'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.4'
-  spec.add_development_dependency 'salsify_rubocop', '~> 0.48.1'
-  spec.add_development_dependency 'overcommit'
-  spec.add_development_dependency 'database_cleaner'
-  spec.add_development_dependency 'pg', '~> 0.18'
+  spec.add_development_dependency 'rspec_junit_formatter'
+  spec.add_development_dependency 'salsify_rubocop', '~> 0.48'
   spec.add_development_dependency 'with_model'
 end

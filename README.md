@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/salsify/activerecord-forbid_implicit_connection_checkout.svg?branch=master)](https://travis-ci.org/salsify/activerecord-forbid_implicit_connection_checkout)
+[![Build Status](https://circleci.com/gh/salsify/activerecord-forbid_implicit_connection_checkout.svg?style=svg)][circleci]
 
 # ActiveRecord-ForbidImplicitCheckout
 
