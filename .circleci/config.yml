@@ -64,6 +64,9 @@ jobs:
           name: Wait for Database
           command: dockerize -wait tcp://localhost:5432 -timeout 60s
       - run:
+          name: Wait for Database User
+          command: t=30; for i in `seq $t`; do psql -h localhost -p 5432 -U ubuntu -d circle_test -c '\q' && break; [ $i -eq $t ] && return 2; sleep 1; done;
+      - run:
           name: Run Tests
           command: |
             bundle exec rspec --format RspecJunitFormatter --out $CIRCLE_TEST_REPORTS/rspec/junit.xml --format progress spec
