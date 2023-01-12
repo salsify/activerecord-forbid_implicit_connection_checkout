@@ -1,5 +1,10 @@
 # activerecord-forbid_implicit_checkout
 
+## v2.0.0
+- Drop support for Ruby < 2.7.
+- Drop support for Rails < 6.0.
+- Add support for Ruby 3.2.
+
 ## v1.1.0
 - Add rails 6.1 support
 

@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.license       = 'MIT'
 
-  spec.required_ruby_version = '>= 2.5'
+  spec.required_ruby_version = '>= 2.7'
 
   # Set 'allowed_push_post' to control where this gem can be published.
   if spec.respond_to?(:metadata)
@@ -30,18 +30,19 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'bin'
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
-  spec.add_dependency 'activemodel', '>= 5.2', '< 6.2'
-  spec.add_dependency 'activerecord', '>= 5.2', '< 6.2'
-  spec.add_dependency 'activesupport', '>= 5.2', '< 6.2'
+
+  spec.add_dependency 'activemodel', '>= 6.0', '< 7.1'
+  spec.add_dependency 'activerecord', '>= 6.0', '< 7.1'
+  spec.add_dependency 'activesupport', '>= 6.0', '< 7.1'
 
   spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'database_cleaner'
   spec.add_development_dependency 'overcommit'
   spec.add_development_dependency 'pg', '~> 1.0'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec', '~> 3.4'
+  spec.add_development_dependency 'rake', '~> 13.0'
+  spec.add_development_dependency 'rspec', '~> 3.12'
   spec.add_development_dependency 'rspec_junit_formatter'
-  spec.add_development_dependency 'salsify_rubocop', '~> 0.48'
+  spec.add_development_dependency 'salsify_rubocop', '~> 1.42.1'
   spec.add_development_dependency 'with_model'
 end

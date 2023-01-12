@@ -3,10 +3,13 @@
 describe ActiveRecord::ForbidImplicitConnectionCheckout do
   let(:thread_return_value) { 12345 }
 
+  before do
+    Thread.report_on_exception = false
+  end
+
   it "has a version number" do
     expect(ActiveRecord::ForbidImplicitConnectionCheckout::VERSION).not_to be nil
   end
-
 
   it "prevents implicit checkout" do
     expect do
