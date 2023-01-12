@@ -1,4 +1,0 @@
-postgresql:
-  adapter: postgresql
-  database: forbid_implicit_connection_checkout_test 
-  host: localhost
