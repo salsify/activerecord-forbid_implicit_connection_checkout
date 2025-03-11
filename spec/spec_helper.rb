@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+require 'logger'
 require 'active_record'
 require 'active_record-forbid_implicit_connection_checkout'
 require 'fileutils'
-require 'logger'
 require 'yaml'
 require 'database_cleaner'
 require 'pg'
