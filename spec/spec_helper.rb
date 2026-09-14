@@ -37,6 +37,11 @@ def teardown_test_database(pg_conn, database_name)
   pg_conn.exec("DROP DATABASE IF EXISTS #{database_name}")
 end
 
+# Minimal model used to prove that a query issued the ordinary way reaches the database.
+class ImplicitCheckoutWidget < ActiveRecord::Base
+  self.table_name = 'implicit_checkout_widgets'
+end
+
 RSpec.configure do |config|
   config.order = 'random'
 
@@ -46,6 +51,12 @@ RSpec.configure do |config|
     end
 
     ActiveRecord::Base.establish_connection("#{database_url}/#{DATABASE_NAME}")
+
+    ActiveRecord::Base.connection_pool.with_connection do |connection|
+      connection.create_table(:implicit_checkout_widgets, force: true) do |t|
+        t.string :name
+      end
+    end
 
     DatabaseCleaner.strategy = :transaction
   end
