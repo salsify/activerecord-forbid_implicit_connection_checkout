@@ -1,6 +1,9 @@
 # activerecord-forbid_implicit_checkout
 
 ## v4.0.0
+- Also forbid checkout via `lease_connection` and `with_connection`, the paths Active Record has
+  used for its own queries since Rails 7.2. Previously only `connection` was intercepted, so an
+  ordinary query in a forbidding thread checked out a connection silently.
 - Drop support for Ruby 3.1, 3.2
 - Drop support for Rails 7.0, 7.1, 7.2
 - Add support for Ruby 4.0

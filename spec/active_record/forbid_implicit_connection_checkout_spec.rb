@@ -82,19 +82,70 @@ describe ActiveRecord::ForbidImplicitConnectionCheckout do
     expect(permitted.value).to eq(1)
   end
 
-  # Known limitation, unchanged across every supported Rails version.
-  #
-  # This gem only prepends `ActiveRecord::Base.connection`. Rails 7.2 introduced
-  # `lease_connection` / `with_connection` and moved its own internals onto them, so an
-  # ordinary query no longer routes through `connection` and is not intercepted. These
-  # examples pin the current behaviour so that any future fix has to change them
-  # deliberately rather than by accident.
-  describe "paths that are not intercepted" do
-    it "does not prevent an explicit lease_connection" do
+  # Active Record leases connections for its own queries through the class level
+  # `lease_connection` and `with_connection`, not through `connection`, so these are the paths
+  # an ordinary query actually takes.
+  describe "the paths Active Record itself uses" do
+    it "prevents an implicit lease_connection" do
+      expect do
+        t = Thread.new do
+          ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
+          ActiveRecord::Base.lease_connection.select_value('SELECT 1')
+        end
+        t.join
+      end.to raise_error(ActiveRecord::ImplicitConnectionForbiddenError)
+    end
+
+    it "prevents an implicit with_connection" do
+      expect do
+        t = Thread.new do
+          ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
+          ActiveRecord::Base.with_connection { |connection| connection.select_value('SELECT 1') }
+        end
+        t.join
+      end.to raise_error(ActiveRecord::ImplicitConnectionForbiddenError)
+    end
+
+    it "prevents a read issued through a model" do
+      expect do
+        t = Thread.new do
+          ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
+          ImplicitCheckoutWidget.count
+        end
+        t.join
+      end.to raise_error(ActiveRecord::ImplicitConnectionForbiddenError)
+    end
+
+    it "prevents a write issued through a model" do
+      expect do
+        t = Thread.new do
+          ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
+          ImplicitCheckoutWidget.create!(name: 'widget')
+        end
+        t.join
+      end.to raise_error(ActiveRecord::ImplicitConnectionForbiddenError)
+    end
+
+    it "allows them inside a manual pool checkout" do
       t = Thread.new do
         ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
-        ActiveRecord::Base.lease_connection
-        value = ActiveRecord::Base.connection.select_value('SELECT 1')
+        ActiveRecord::Base.connection_pool.with_connection do
+          [
+            ActiveRecord::Base.with_connection { |connection| connection.select_value('SELECT 1') },
+            ImplicitCheckoutWidget.count
+          ]
+        end
+      end
+      t.join
+      expect(t.value).to eq([1, 0])
+    end
+
+    it "allows lease_connection inside a manual pool checkout" do
+      t = Thread.new do
+        ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
+        value = ActiveRecord::Base.connection_pool.with_connection do
+          ActiveRecord::Base.lease_connection.select_value('SELECT 1')
+        end
         ActiveRecord::Base.connection_pool.release_connection
         value
       end
@@ -102,9 +153,8 @@ describe ActiveRecord::ForbidImplicitConnectionCheckout do
       expect(t.value).to eq(1)
     end
 
-    it "does not prevent a query issued through a model" do
+    it "does not affect a thread that has not forbidden checkout" do
       t = Thread.new do
-        ActiveRecord::Base.forbid_implicit_connection_checkout_for_thread!
         value = ImplicitCheckoutWidget.count
         ActiveRecord::Base.connection_pool.release_connection
         value
